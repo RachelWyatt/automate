@@ -31,7 +31,7 @@ func (s *Server) GetNodes(ctx context.Context, req *request.Nodes) (*response.No
 	}, nil
 }
 
-// GetAffectedNodes get the nodes using chef object
+// GetAffectedNodes gets the nodes using chef object
 func (s *Server) GetAffectedNodes(ctx context.Context, req *request.AffectedNodes) (*response.AffectedNodes, error) {
 	c, err := s.createClient(ctx, req.OrgId, req.ServerId)
 	if err != nil {
@@ -144,7 +144,7 @@ func (s *Server) DeleteNode(ctx context.Context, req *request.DeleteNode) (*resp
 	}, nil
 }
 
-// UpdateNode update the node
+// UpdateNode updates the node
 func (s *Server) UpdateNode(ctx context.Context, req *request.UpdateNode) (*response.UpdateNode, error) {
 	c, err := s.createClient(ctx, req.OrgId, req.ServerId)
 	if err != nil {
@@ -191,7 +191,7 @@ func (s *Server) UpdateNode(ctx context.Context, req *request.UpdateNode) (*resp
 	}, nil
 }
 
-// UpdateNodeAttributes update the node attributes
+// UpdateNodeAttributes updates the node attributes
 func (s *Server) UpdateNodeAttributes(ctx context.Context, req *request.UpdateNodeAttributes) (*response.UpdateNodeAttributes, error) {
 	err := validation.New(validation.Options{
 		Target:  "node",
@@ -240,7 +240,7 @@ func (s *Server) UpdateNodeAttributes(ctx context.Context, req *request.UpdateNo
 	}, nil
 }
 
-// fetchAffectedNodes get the nodes used by chef object
+// fetchAffectedNodes gets the nodes used by chef object
 // URL is being constructed based on the chefType, name, and version
 // chefType: should be one of the cookbooks, roles and chef_environment value
 // For cookbooks: it would be 'cookbooks_COOKBOOK_NAME_version:COOKBOOK_VERSION'

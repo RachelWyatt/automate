@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of as observableOf } from 'rxjs';
 import { catchError, mergeMap, map } from 'rxjs/operators';
 import { CreateNotification } from 'app/entities/notifications/notification.actions';
@@ -26,17 +26,18 @@ export class DataBagItemsEffects {
     private requests: DataBagsRequests
   ) { }
 
-  @Effect()
-  getDataBagItems$ = this.actions$.pipe(
+  getDataBagItems$ = createEffect(() => {
+    return this.actions$.pipe(
     ofType(DataBagItemsActionTypes.GET_ALL),
     mergeMap(( action: GetDataBagItems) =>
       this.requests.getDataBagItems(action.payload).pipe(
         map((resp: DataBagItemsSuccessPayload) => new GetDataBagItemsSuccess(resp)),
         catchError((error: HttpErrorResponse) =>
           observableOf(new GetDataBagItemsFailure(error))))));
+  });
 
-  @Effect()
-  getDataBagItemsFailure$ = this.actions$.pipe(
+  getDataBagItemsFailure$ = createEffect(() => {
+    return this.actions$.pipe(
     ofType(DataBagItemsActionTypes.GET_ALL_FAILURE),
     map(({ payload }: GetDataBagItemsFailure) => {
       const msg = payload.error.error;
@@ -45,6 +46,7 @@ export class DataBagItemsEffects {
         message: `Could not get infra data bag items: ${msg || payload.error}`
       });
     }));
+  });
 
   @Effect()
   deleteDataBagItem$ = this.actions$.pipe(

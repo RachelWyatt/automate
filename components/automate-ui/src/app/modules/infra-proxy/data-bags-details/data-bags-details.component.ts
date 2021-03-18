@@ -160,7 +160,7 @@ export class DataBagsDetailsComponent implements OnInit, OnDestroy {
     this.store.dispatch(new GetDataBagItems(payload));
   }
 
-  openDatabagItemModal() {
+  openDatabagItemModal(): void {
     this.openDataBagItemModal.emit();
   }
 }
